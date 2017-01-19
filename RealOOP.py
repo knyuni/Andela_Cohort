@@ -1,71 +1,33 @@
-class Bank():
-  def deposit():
-    pass
-  
-  def deposit():
-    pass
-  
-class Mshwari(Bank):
-  def __init__(self):
-    self.balance = 1000
-    
-  
-  def deposit(self,deposit):
-    if type(deposit) == int and deposit !="":
-      if deposit >= 0:
-        self.balance += deposit
-        return self.balance
-
-      else:
-        return 'Invalid Amount'
-
-    else:
-      raise ValueError()
-
-  def withdraw(self,amount):
-    if type(amount) == int and amount != "":
-      if amount > 0:
-        if (self.balance-amount) > 0:
-          if (self.balance -amount) > 1000:
-            self.balance-=amount
-            return self.balance
-          else:
-            return 'Insufficient funds in Account'
-        else:
-          return 'Enter Amount below Actual balance'
-      else:
-        return 'Invalid Amount'
-    else:
-      raise ValueError()
-      
-class CurrentAccount(Bank):
+class BankAccount:
   def __init__(self):
     self.balance = 0
-    
+
+  def withdraw(self, amount):
+    self.balance -= amount
+    return self.balance
+
+  def deposit(self, amount):
+    self.balance += amount
+    return self.balance
+
+  def make_account():
+    return {'balance': 0}
+
+  def deposit(account, amount):
+    account['balance'] += amount
+    return account['balance']
+
+  def withdraw(account, amount):
+    account['balance'] -= amount
+    return account['balance']
   
-  def deposit(self,deposit):
-    if type(deposit) == int and deposit !="":
-      if deposit >= 0:
-        self.balance += deposit
-        return self.balance
+class MinimumBalanceAccount(BankAccount):
+    def __init__(self, minimum_balance):
+        BankAccount.__init__(self)
+        self.minimum_balance = minimum_balance
 
-      else:
-        return 'Invalid deposit amount'
-
-    else:
-      raise ValueError()
-
-  def withdraw(self,amount):
-    if type(amount) ==  int and amount != "":
-      if amount > 0:
-        if (self.balance-amount) > 0:
-
-          self.balance-=amount
-          return self.balance
-
+    def withdraw(self, amount):
+        if self.balance - amount < self.minimum_balance:
+            print 'Sorry, minimum balance must be maintained.'
         else:
-          return 'Enter Amount below Actual balance'
-      else:
-        return 'Invalid withdraw amount'
-    else:
-raise ValueError()
+            BankAccount.withdraw(self, amount)
